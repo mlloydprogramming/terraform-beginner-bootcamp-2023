@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Check if .bash_profile exists
+if [ -f ~/.bash_profile ]; then
+    # Check if the alias 'tf' already exists in .bash_profile
+    if grep -q "alias tf='terraform'" ~/.bash_profile; then
+        echo "The 'tf' alias for Terraform already exists in ~/.bash_profile."
+    else
+        # Append the alias to .bash_profile
+        echo "alias tf='terraform'" >> ~/.bash_profile
+        # Source .bash_profile to apply changes to the current session
+        source ~/.bash_profile
+        echo "Alias 'tf' for Terraform has been added to ~/.bash_profile."
+    fi
+else
+    echo "Error: ~/.bash_profile does not exist. Please create it first."
+fi
