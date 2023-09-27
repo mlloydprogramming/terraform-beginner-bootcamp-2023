@@ -226,3 +226,5 @@ Then create the file manually here:
 touch /home/gitpod/.terraform.d/credentials.tfrc.json
 open /home/gitpod/.terraform.d/credentials.tfrc.json
 ```
+
+This process has been automated using the following bash script [bin/generate_tfrc_credentials](bin/generate_tfrc_credentials)
