@@ -200,3 +200,10 @@ If you lose this file, you lose knowing the state of your infrastructure.
 ### Terraform Directory
 
 `.terraform` Directory contains binaries of terraform providers.
+
+### Terraform Destroy
+
+`terraform destroy`
+This will destroy the terraformed items.
+
+As with other commands you can use `--auto-approve` tag
