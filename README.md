@@ -207,3 +207,22 @@ If you lose this file, you lose knowing the state of your infrastructure.
 This will destroy the terraformed items.
 
 As with other commands you can use `--auto-approve` tag
+
+### Terraform State
+
+If you get in a wierd state you can do a `terraform state pull` to pull the cloud state file. I performed this because I got in a wierd state on my pod and spun up a new pod to set everything up. Might have been unnecessary but it is the steps I took.
+
+## Issues with Terraform Cloud Login and Gitpod Workspace
+
+When attempting to run `terraform login` it will launch a view to generate a token, however, it does not work as expected in gitpod vscode in the browser.
+
+Work around is to generate a token in Terraform Cloud
+
+[terraform token generation](https://app.terraform.io/app/settings/tokens?source=terraform-login)
+
+Then create the file manually here:
+
+```sh
+touch /home/gitpod/.terraform.d/credentials.tfrc.json
+open /home/gitpod/.terraform.d/credentials.tfrc.json
+```
