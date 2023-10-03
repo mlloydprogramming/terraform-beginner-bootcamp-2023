@@ -59,3 +59,24 @@ The means that variables lower on the list may overwrite values set above.
 
 https://learning-ocean.com/tutorials/terraform/terraform-variable-precedence
 
+## Dealing with Configuration Drift
+
+### Fix Missing Resources with Terrform Import
+
+You can fix missing resources using the `terraform import`
+
+Documentation on importing from various providers can be found at [Terraform Registry](https://registry.terraform.io/)
+
+Below is an example of using terraform import via the CLI
+
+```sh
+% terraform import aws_s3_bucket.bucket bucket-name
+```
+
+If you lose your statefile, you most likely have to tear down all your infrastructure manually. Not all resources provide an import function.
+
+Imports can also be managed via the `imports.tf` file.
+
+### Fix Manual Configuration
+
+If drift occurs you can run terraform plan and it will attempt to put the infrastructure state back into its expected state.
