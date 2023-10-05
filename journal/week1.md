@@ -80,3 +80,38 @@ Imports can also be managed via the `imports.tf` file.
 ### Fix Manual Configuration
 
 If drift occurs you can run terraform plan and it will attempt to put the infrastructure state back into its expected state.
+
+## Terraform Modules
+
+### Terraform Module Structure
+
+It is recommended to place modules in a modules directory but you can name it however you like.
+
+### Passing Input Variables
+
+We can pass input variables to our module
+
+The module has to declare the terraform variables in its own variables.tf
+
+```tf
+module "terrahouse_aws" {
+  source = "./module/terrahouse_aws"
+  user_uuid = var.user_uuid
+  bucket_name = var.bucket_name
+}
+```
+
+### Modules sources
+
+using the source we can import the module from various places eg.:
+- locally
+- github
+- terraform Registry
+
+```tf
+module "terrahouse_aws" {
+  source = "./module/terrahouse_aws"
+}
+```
+
+[Modules Sources](https://developer.hashicorp.com/terraform/language/modules/sources)
