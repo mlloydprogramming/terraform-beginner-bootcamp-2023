@@ -36,3 +36,14 @@ variable "error_html_filepath" {
     error_message = "The specified file does not exist."
   }
 }
+
+variable "content_version" {
+  description = "The version of the content. Should be a positive integer starting at one."
+
+  type = number
+
+  validation {
+    condition     = var.content_version >= 1 && var.content_version == floor(var.content_version)
+    error_message = "The content_version must be a positive integer starting at one."
+  }
+}
