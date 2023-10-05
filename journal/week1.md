@@ -155,6 +155,34 @@ resource "aws_s3_object" "error_html" {
 
 [md5 function](https://developer.hashicorp.com/terraform/language/functions/md5)
 
+### JSONEncode Function
+
+used to create json policy inline for the bucket policy.
+
+```tf
+resource "aws_s3_bucket_policy" "bucket_policy" {
+  policy = jsonencode({
+    "Version" = "2012-10-17",
+    "Statement" = {
+        "Sid"=  "AllowCloudFrontServicePrincipalReadOnly",
+        "Effect" = "Allow",
+        "Principal" = {
+            "Service" = "cloudfront.amazonaws.com"
+        },
+        "Action" = "s3:GetObject",
+        "Resource" = "arn:aws:s3:::${aws_s3_bucket.website_bucket.id}/*",
+        "Condition" = {
+            "StringEquals" = {
+                "AWS:SourceArn" = "arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/${aws_cloudfront_distribution.s3_distribution.id}"
+                }
+            }
+        }
+    })
+}
+```
+
+[jsonencode function](https://developer.hashicorp.com/terraform/language/functions/jsonencode)
+
 ### Path Variables
 
 In terraform there is a special variable called `path` that allows us to reference local paths:
@@ -164,3 +192,33 @@ In terraform there is a special variable called `path` that allows us to referen
 example `source = "${path.root}/public/index.html"`
 
 [Special Path Variable](https://developer.hashicorp.com/terraform/language/expressions/references)
+
+### Terraform Local Values
+
+Locals allow us to define local variables.
+
+Can be useful when we need to transform data into another format.
+
+```tf
+locals {
+    s3_origin_id = "MyS3Origin"
+}
+```
+
+[Terraform Locals](https://developer.hashicorp.com/terraform/language/values/locals)
+
+### Terraform Data Sources
+
+This allows us to source data from cloud resources.
+
+Useful when wanting to reference cloud resources without importing them.
+
+```tf
+data "aws_caller_identity" "current" {}
+
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+}
+```
+
+[Terraform Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
