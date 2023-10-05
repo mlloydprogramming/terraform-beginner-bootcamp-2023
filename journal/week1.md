@@ -115,3 +115,52 @@ module "terrahouse_aws" {
 ```
 
 [Modules Sources](https://developer.hashicorp.com/terraform/language/modules/sources)
+
+### considerations when using ChatGPT to write Terraform
+
+LLMs such as ChatGPT may not be trained on the latest documentation or information about terraform.
+
+It may likely produce older examples that have since been updated.
+
+
+
+[aws_s3_object documentation](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object)
+
+[aws_s3_bucket_website_configuration](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket_website_configuration)
+
+## Working with Files in Terraform
+
+### File Exist Function
+
+This is a file exist function built in by terraform to confirm if a file exists for validation.
+
+```tf
+validation {
+  condition     = fileexists(var.error_html_filepath)
+  error_message = "The specified file does not exist."
+}
+```
+
+[fileexists function](https://developer.hashicorp.com/terraform/language/functions/fileexists)
+
+### FileMD5 Function
+
+built in terraform function that creates an MD5 Hash for changes.
+
+```tf
+resource "aws_s3_object" "error_html" {
+  etag = filemd5(var.index_html_filepath)
+}
+```
+
+[md5 function](https://developer.hashicorp.com/terraform/language/functions/md5)
+
+### Path Variables
+
+In terraform there is a special variable called `path` that allows us to reference local paths:
+- path.module = get the path for the current module
+- path.root = get the path for the root module
+
+example `source = "${path.root}/public/index.html"`
+
+[Special Path Variable](https://developer.hashicorp.com/terraform/language/expressions/references)
