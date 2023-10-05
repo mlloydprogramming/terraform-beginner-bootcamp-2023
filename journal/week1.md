@@ -222,3 +222,23 @@ output "account_id" {
 ```
 
 [Terraform Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
+
+### Changing the Lifecycle of Resources
+
+
+
+```tf
+resource "aws_instance" "example" {
+  # ...
+
+  lifecycle {
+    ignore_changes = [
+      # Ignore changes to tags, e.g. because a management agent
+      # updates these based on some ruleset managed elsewhere.
+      tags,
+    ]
+  }
+}
+```
+
+[Meta Arguments: Lifecycles](https://developer.hashicorp.com/terraform/language/meta-arguments/lifecycle)
