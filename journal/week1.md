@@ -292,3 +292,33 @@ resource "aws_instance" "web" {
 }
 ```
 [remote-exec](https://developer.hashicorp.com/terraform/language/resources/provisioners/remote-exec)
+
+## For-each Expressions
+
+Allows you to iterrate over complex data structures. 
+
+```tf
+[for s in var.list : upper(s)]
+```
+
+Useful when creating multiples of a cloud resource and you want to reduce the amount of repeditive terraform code.
+
+[For Each](https://developer.hashicorp.com/terraform/language/expressions/for)
+
+## Terraform Console
+
+### File-Set Function
+
+[fileset](https://developer.hashicorp.com/terraform/language/functions/fileset)
+
+## Terraform Types and Values
+
+[Types and Values](https://developer.hashicorp.com/terraform/language/expressions/types)
+
+### List collection type
+
+### Maps collection type
+
+### Set collection type
+
+
