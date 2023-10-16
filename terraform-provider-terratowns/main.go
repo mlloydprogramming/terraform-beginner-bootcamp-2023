@@ -39,18 +39,21 @@ func Provider() *schema.Provider {
 	var p *schema.Provider
 	p = &schema.Provider{
 		ResourcesMap: map[string]*schema.Resource{
+
 			"terratowns_home": Resource(),
 		},
 		DataSourcesMap: map[string]*schema.Resource{},
 		Schema: map[string]*schema.Schema{
 			"endpoint": {
-				Type:        schema.TypeString,
-				Required:    true,
+				Type:     schema.TypeString,
+				Required: true,
+
 				Description: "The endpoint for hte external service",
 			},
 			"token": {
-				Type:        schema.TypeString,
-				Sensitive:   true, // make the token as sensitive to hide it the logs
+				Type:      schema.TypeString,
+				Sensitive: true, // make the token as sensitive to hide it the logs
+
 				Required:    true,
 				Description: "Bearer token for authorization",
 			},
@@ -72,7 +75,9 @@ func validateUUID(v interface{}, k string) (ws []string, errors []error) {
 	if _, err := uuid.Parse(value); err != nil {
 		errors = append(errors, fmt.Errorf("invalid UUID format"))
 	}
+
 	log.Print("validateUUID:end")
+
 	return
 }
 
@@ -82,6 +87,7 @@ func providerConfigure(p *schema.Provider) schema.ConfigureContextFunc {
 		config := Config{
 			Endpoint: d.Get("endpoint").(string),
 			Token:    d.Get("token").(string),
+
 			UserUuid: d.Get("user_uuid").(string),
 		}
 		log.Print("providerConfigure:end")
@@ -125,6 +131,7 @@ func Resource() *schema.Resource {
 		},
 	}
 	log.Print("Resource:start")
+
 	return resource
 }
 
